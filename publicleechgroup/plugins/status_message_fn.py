@@ -272,7 +272,10 @@ async def eval_message_f(client, message):
 
 async def aexec(code, client, message):
     exec(
-        f'async def __aexec(client, message): ' +
-        ''.join(f'\n {l}' for l in code.split('\n'))
+        (
+            'async def __aexec(client, message): '
+            + ''.join(f'\n {l}' for l in code.split('\n'))
+        )
     )
+
     return await locals()['__aexec'](client, message)

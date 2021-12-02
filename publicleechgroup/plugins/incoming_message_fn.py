@@ -77,10 +77,8 @@ async def leech_commandi_f(client, message):
         "checking",
         quote=True
     )
-    force_doc = False
     m_sgra = " ".join(message.command[1:])
-    if "file" in m_sgra.lower():
-        force_doc = True
+    force_doc = "file" in m_sgra.lower()
     # get link from the incoming message
     dl_url, cf_name, _, _ = await extract_link(
         message.reply_to_message, "LEECH"
@@ -114,13 +112,8 @@ async def leech_commandi_f(client, message):
                 # maybe IndexError / ValueError might occur,
                 # we don't know, yet!!
             )
-            if not sagtus:
-                # if FAILED, display the error message
-                await m_.edit_text(err_message)
         else:
-            is_zip = False
-            if "a" in m_sgra:
-                is_zip = True
+            is_zip = "a" in m_sgra
             await m_.edit_text("trying to download")
             # try to download the "link"
             sagtus, err_message = await call_apropriate_function(
@@ -132,9 +125,9 @@ async def leech_commandi_f(client, message):
                 force_doc=force_doc,
                 cfn=cf_name
             )
-            if not sagtus:
-                # if FAILED, display the error message
-                await m_.edit_text(err_message)
+        if not sagtus:
+            # if FAILED, display the error message
+            await m_.edit_text(err_message)
 
 
 async def incoming_youtube_dl_f(client, message):

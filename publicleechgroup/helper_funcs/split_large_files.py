@@ -69,7 +69,7 @@ async def split_large_files(input_file):
         )
         # casting to int cuz float Time Stamp can cause errors
         minimum_duration = int(minimum_duration)
-        
+
         LOGGER.info(minimum_duration)
         # END: proprietary
         start_time = 0
@@ -77,10 +77,10 @@ async def split_large_files(input_file):
         base_name = os.path.basename(input_file)
         input_extension = base_name.split(".")[-1]
         LOGGER.info(input_extension)
-        
+
         i = 0
         flag = False
-        
+
         while end_time <= total_duration:
             LOGGER.info(i)
             # file name generate
@@ -100,8 +100,8 @@ async def split_large_files(input_file):
 
             # adding offset of 3 seconds to ensure smooth playback 
             start_time = end_time - 3
-            end_time = end_time + minimum_duration
-            i = i + 1
+            end_time += minimum_duration
+            i += 1
 
             if (end_time > total_duration) and not flag:
                  end_time = total_duration
@@ -125,7 +125,7 @@ async def split_large_files(input_file):
             o_d_t
         ]
         await run_comman_d(file_genertor_command)
-        
+
     elif SP_LIT_ALGO_RITH_M.lower() == "rar":
         o_d_t = os.path.join(
             new_working_directory,

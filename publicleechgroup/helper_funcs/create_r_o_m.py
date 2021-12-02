@@ -40,21 +40,23 @@ from publicleechgroup.helper_funcs.r_clone import (
 
 async def get_markup(message: Message):
     inline_keyboard = []
-    ikeyboard = []
-    ikeyboard.append(InlineKeyboardButton(
-        "leech 🤔🤔",
-        callback_data=("leech").encode("UTF-8")
-    ))
+    ikeyboard = [
+        InlineKeyboardButton(
+            "leech 🤔🤔", callback_data=("leech").encode("UTF-8")
+        )
+    ]
+
     ikeyboard.append(InlineKeyboardButton(
         "youtube-dl",
         callback_data=("ytdl").encode("UTF-8")
     ))
     inline_keyboard.append(ikeyboard)
-    ikeyboard = []
-    ikeyboard.append(InlineKeyboardButton(
-        "A leech TAR . GZ  🤔🤔",
-        callback_data=("leecha").encode("UTF-8")
-    ))
+    ikeyboard = [
+        InlineKeyboardButton(
+            "A leech TAR . GZ  🤔🤔", callback_data=("leecha").encode("UTF-8")
+        )
+    ]
+
     ikeyboard.append(InlineKeyboardButton(
         "A youtube-dl TAR . GZ",
         callback_data=("ytdla").encode("UTF-8")
@@ -70,8 +72,7 @@ async def get_markup(message: Message):
             config = configparser.ConfigParser()
             config.read(r_clone_conf_file)
             remote_names = config.sections()
-            it_r = 0
-            for remote_name in remote_names:
+            for it_r, remote_name in enumerate(remote_names):
                 ikeyboard.append(InlineKeyboardButton(
                     f"RClone LEECH {remote_name}",
                     callback_data=(f"leech_rc_{it_r}").encode("UTF-8")
@@ -82,7 +83,6 @@ async def get_markup(message: Message):
                 # ))
                 inline_keyboard.append(ikeyboard)
                 ikeyboard = []
-                it_r = it_r + 1
     reply_markup = InlineKeyboardMarkup(inline_keyboard)
     inline_keyboard = []
 
